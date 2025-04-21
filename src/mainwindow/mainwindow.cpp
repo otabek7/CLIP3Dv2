@@ -29,6 +29,7 @@
 #include "printsettings.h"
 
 DLP9000& DLP = DLP9000::Instance();
+DLP9000& DLP2 = DLP9000::Instance();
 StageCommands& Stage = StageCommands::Instance();
 PumpCommands& Pump = PumpCommands::Instance();
 
@@ -630,7 +631,9 @@ void MainWindow::on_LogFileBrowse_clicked() {
  * no errors have occured and connection is working
  */
 void MainWindow::on_LightEngineConnectButton_clicked() {
-  if (DLP.InitProjector()) {  // if connection was succesful
+  const char* target_path1 = "\\\\?\\hid#vid_0451&pid_c900&mi_00#7&2d1e145&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}";
+
+  if (DLP.InitProjector(target_path1)) {  // if connection was succesful
     PrintToTerminal("Light Engine Connected");
     ui->LightEngineIndicator->setStyleSheet("background:rgb(0, 255, 0); border: 1px solid black;");
     ui->LightEngineIndicator->setText("Connected");
@@ -647,6 +650,29 @@ void MainWindow::on_LightEngineConnectButton_clicked() {
     PrintToTerminal("Light Engine Connection Failed");
     ui->LightEngineIndicator->setStyleSheet("background:rgb(255, 0, 0); border: 1px solid black;");
     ui->LightEngineIndicator->setText("Disconnected");
+  }
+}
+
+void MainWindow::on_LightEngineDMD2ConnectButton_clicked() {
+  const char* target_path2 = "\\\\?\\hid#vid_0451&pid_c900&mi_00#9&3843ecd&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}";
+
+  if (DLP2.InitProjector(target_path2)) {  // if connection was succesful
+    PrintToTerminal("Light Engine DMD2 Connected");
+    ui->LightEngineDMD2Indicator->setStyleSheet("background:rgb(0, 255, 0); border: 1px solid black;");
+    ui->LightEngineDMD2Indicator->setText("Connected");
+    m_PrintControls.lightConnect = ON;
+
+    // Check for light engine errors
+    uint Code;
+    if (LCR_ReadErrorCode(&Code) >= 0) {
+      PrintToTerminal("Last Error Code: " + QString::number(Code));
+    } else {
+      PrintToTerminal("Failed to get last error code");
+    }
+  } else {
+    PrintToTerminal("Light Engine DMD2 Connection Failed");
+    ui->LightEngineDMD2Indicator->setStyleSheet("background:rgb(255, 0, 0); border: 1px solid black;");
+    ui->LightEngineDMD2Indicator->setText("Disconnected");
   }
 }
 
@@ -1348,6 +1374,7 @@ bool MainWindow::initResetConfirmation() {
 void MainWindow::autoConnect() {
   PrintToTerminal("Attempting to connect to Light Engine");
   on_LightEngineConnectButton_clicked();
+  on_LightEngineDMD2ConnectButton_clicked();
   if (m_PrintControls.lightConnect == OFF) {
     m_PrintSettings.ProjectionMode = POTF;
   }
@@ -1365,6 +1392,26 @@ void MainWindow::autoConnect() {
  */
 void MainWindow::on_LightEngineConnectButton_clicked() {
   if (DLP.InitProjector()) {  // if connection was succesful
+    PrintToTerminal("Light Engine Connected");
+    ui->LightEngineIndicator->setStyleSheet("background:rgb(0, 255, 0); border: 1px solid black;");
+    ui->LightEngineIndicator->setText("Connected");
+
+    // Check for light engine errors
+    uint Code;
+    if (LCR_ReadErrorCode(&Code) >= 0) {
+      PrintToTerminal("Last Error Code: " + QString::number(Code));
+    } else {
+      PrintToTerminal("Failed to get last error code");
+    }
+  } else {
+    PrintToTerminal("Light Engine Connection Failed");
+    ui->LightEngineIndicator->setStyleSheet("background:rgb(255, 0, 0); border: 1px solid black;");
+    ui->LightEngineIndicator->setText("Disconnected");
+  }
+}
+
+void MainWindow::on_LightEngineDMD2ConnectButton_clicked() {
+  if (DLP2.InitProjector()) {  // if connection was succesful
     PrintToTerminal("Light Engine Connected");
     ui->LightEngineIndicator->setStyleSheet("background:rgb(0, 255, 0); border: 1px solid black;");
     ui->LightEngineIndicator->setText("Connected");

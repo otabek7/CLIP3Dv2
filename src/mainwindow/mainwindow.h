@@ -28,7 +28,7 @@ class MainWindow : public QMainWindow {
   ~MainWindow();
   imagepopout popout;
   printcontrol PrintControl;
-
+  printcontrol PrintControl2;
  public slots:
   void showError(QString errMsg);
   void PrintToTerminal(QString StringToPrint);
@@ -44,6 +44,8 @@ class MainWindow : public QMainWindow {
   void on_StageConnectButton_clicked();
 
   void on_LightEngineConnectButton_clicked();
+
+  void on_LightEngineDMD2ConnectButton_clicked();
 
   void ExposureTimeSlot();
 
@@ -73,9 +75,14 @@ class MainWindow : public QMainWindow {
 
   void on_DICLIPSelect_clicked();
 
+  // void on_DICLIPSelectDMD2_clicked();
+
   void pumpingSlot();
 
   void on_CLIPSelect_clicked();
+
+  // void on_DMD2CLIPSelect_clicked();
+
 
   void updatePosition(QString CurrentPosition);
 
@@ -91,11 +98,16 @@ class MainWindow : public QMainWindow {
 
   void on_resetButton_clicked();
 
- private:
+  // void on_LightEngineIndicator_linkHovered(const QString &link);
+
+  private:
   Ui::MainWindow* ui;
   PrintScripts m_PrintScript;
+  // PrintScripts m_PrintScriptDMD2;
   PrintSettings m_PrintSettings;
+  // PrintSettings m_PrintSettingsDMD2;
   PrintControls m_PrintControls;
+  // PrintControls m_PrintControlsDMD2;
   InjectionSettings m_InjectionSettings;
   ManualStageControl* ManualStageUI;
   manualpumpcontrol* ManualPumpUI;

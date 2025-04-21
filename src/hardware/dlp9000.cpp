@@ -16,10 +16,10 @@
  * Initializes connection to the projector.
  * \return Returns true if connection was successful, false otherwise
  */
-bool DLP9000::InitProjector() {
+bool DLP9000::InitProjector(const char *path) {
   // If connection was successful: enter POTF mode and return true
   static bool emitError = false;
-  if (USB_Open() == 0) {
+  if (USB_Open(path) == 0) {
     LCR_SetMode(PTN_MODE_OTF);
     return true;
   } else { //emit error and return false

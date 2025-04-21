@@ -89,7 +89,7 @@ typedef struct
     }text;
 }hidMessageStruct;
 void USB_SetFakeConnection(BOOL enable);
-int USB_Open(void);
+int USB_Open(const char *path);
 BOOL USB_IsConnected();
 int USB_Write(uint08 *Data);
 int USB_Read(uint08 *Data);

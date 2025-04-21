@@ -196,6 +196,7 @@ int USB_Exit(void)
  */
 int USB_Open()
 {
+    PrintToTerminal("usb.cpp USB_Open()");
     int results;
 
     if(FakeConnection == FALSE)

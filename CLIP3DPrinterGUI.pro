@@ -12,15 +12,17 @@ INCLUDEPATH += "src/3rdparty/serialib"
 INCLUDEPATH += "src/3rdparty/qcustomplot"
 INCLUDEPATH += "src/3rdparty/ThorLabs/include"
 INCLUDEPATH += "src/3rdparty/Thorlabs/load_dll_helpers"
-
+#INCLUDEPATH += "src/3rdparty/hidapi-master/windows" #added by otabek
 INCLUDEPATH += "src/mainwindow"
 INCLUDEPATH += "src/secondary"
 INCLUDEPATH += "src/hardware"
+INCLUDEPATH += "src/3rdparty/hidapi-master/hidapi" #added by otabek
 
 
-RC_ICONS = DeSimoneLogo.ico
+#RC_ICONS = FaviconLogo.ico
 
 SOURCES += \
+    src/3rdparty/hidapi-master/windows/hid.c \ #added by otabek
     src/3rdparty/ThorLabs/load_dll_helpers/tl_camera_sdk_load.c \
     src/hardware/SMC100C.cpp \
     src/hardware/dlp9000.cpp \
@@ -39,9 +41,12 @@ SOURCES += \
     src/hardware/pumpcommands.cpp \
     src/3rdparty/qcustomplot/qcustomplot.cpp \
     src/3rdparty/serialib/serialib.cpp \
+    src/3rdparty/HiresLib/list_usb_devices.cpp \
     src/hardware/stagecommands.cpp
 
 HEADERS += \
+    src/3rdparty/HiresLib/list_usb_devices.h \
+    src/3rdparty/hidapi-master/hidapi/hidapi.h \ #added by otabek
     src/3rdparty/ThorLabs/include/tl_camera_sdk.h \
     src/3rdparty/ThorLabs/load_dll_helpers/tl_camera_sdk_load.h \
     src/PrintElements.h \
@@ -113,7 +118,7 @@ SOURCES += \
 
 INCLUDEPATH += $$PWD/3rdparty/hidapi-master/lib4QT
 DEPENDPATH += $$PWD/3rdparty/hidapi-master/lib4QT
-win32: LIBS += -L$$PWD/src/3rdparty/hidapi-master/lib4QT/ -lhidapi
+# win32: LIBS += -L$$PWD/src/3rdparty/hidapi-master/lib4QT/ -lhidapi /TEMPORARILY COMMENTED OUT
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

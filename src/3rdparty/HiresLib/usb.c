@@ -69,12 +69,14 @@ int USB_Exit(void)
  *
  * @return 0 on success, -1 on failure
  */
-int USB_Open()
+int USB_Open(const char *path)
 {
+    printf("USB_Open called with path: %s\n", path);
+
     if(FakeConnection == FALSE)
     {
         struct hid_device_info *hid_info;
-        hid_info = hid_enumerate(MY_VID, MY_PID);
+        hid_info = hid_enumerate(MY_VID, MY_PID, path);
         if(hid_info == NULL)
         {
             USBConnected = FALSE;
@@ -121,21 +123,21 @@ int USB_Write(uint08 *Data)
     {
         memcpy(&dummyMsg, Data + 1, 16);
 
-		if(dummyMsg.head.flags.rw == 0)
-		{
-			switch(dummyMsg.text.cmd)
-			{
-				case  0x200: // power mode
-					powermode = dummyMsg.text.data[2];
-					break;
+        if(dummyMsg.head.flags.rw == 0)
+        {
+            switch(dummyMsg.text.cmd)
+            {
+                case  0x200: // power mode
+                    powermode = dummyMsg.text.data[2];
+                    break;
 
-				case 0x1A1B:
-					dispmode = dummyMsg.text.data[2];
-					break;
-			}
-		}
+                case 0x1A1B:
+                    dispmode = dummyMsg.text.data[2];
+                    break;
+            }
+        }
         return 1;
-	}
+    }
 
 
     if(DeviceHandle == NULL)
@@ -161,13 +163,13 @@ int USB_Read(uint08 *Data)
         switch(dummyMsg.text.cmd)
         {
         case  0x200: // power mode
-			dummyMsg.text.data[0] = powermode;
-			memcpy(Data, &dummyMsg, 16);
+            dummyMsg.text.data[0] = powermode;
+            memcpy(Data, &dummyMsg, 16);
             break;
 
         case 0x1A1B:
-			dummyMsg.text.data[0] = dispmode;
-			memcpy(Data, &dummyMsg, 16);
+            dummyMsg.text.data[0] = dispmode;
+            memcpy(Data, &dummyMsg, 16);
             break;
 
         default:
