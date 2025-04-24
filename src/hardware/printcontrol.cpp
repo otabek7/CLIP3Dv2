@@ -6,6 +6,7 @@
 #include <QTime>
 
 DLP9000& pc_DLP = DLP9000::Instance();
+DLP9000& pc_DLP2 = DLP9000::Instance();
 StageCommands& pc_Stage = StageCommands::Instance();
 PumpCommands& pc_Pump = PumpCommands::Instance();
 

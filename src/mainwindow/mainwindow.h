@@ -75,13 +75,13 @@ class MainWindow : public QMainWindow {
 
   void on_DICLIPSelect_clicked();
 
-  // void on_DICLIPSelectDMD2_clicked();
+  void on_DICLIPSelectDMD2_clicked();
 
   void pumpingSlot();
 
   void on_CLIPSelect_clicked();
 
-  // void on_DMD2CLIPSelect_clicked();
+  void on_DMD2CLIPSelect_clicked();
 
 
   void updatePosition(QString CurrentPosition);
@@ -103,11 +103,11 @@ class MainWindow : public QMainWindow {
   private:
   Ui::MainWindow* ui;
   PrintScripts m_PrintScript;
-  // PrintScripts m_PrintScriptDMD2;
+  PrintScripts m_PrintScriptDMD2;
   PrintSettings m_PrintSettings;
-  // PrintSettings m_PrintSettingsDMD2;
+  PrintSettings m_PrintSettingsDMD2;
   PrintControls m_PrintControls;
-  // PrintControls m_PrintControlsDMD2;
+  PrintControls m_PrintControlsDMD2;
   InjectionSettings m_InjectionSettings;
   ManualStageControl* ManualStageUI;
   manualpumpcontrol* ManualPumpUI;

@@ -20,6 +20,10 @@ class printsettings : public QWidget {
   void savePrintSettings();
   void loadPrintSettings();
   void initPrintSettings();
+  void logCurrentSettingsToFile();
+
+
+  void printCurrentSettings();
 
   void EnableParameter(Parameter_t Parameter, bool State);
   int FileListCount();

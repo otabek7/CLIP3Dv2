@@ -57,7 +57,7 @@
         </property>
         <widget class="QWidget" name="tab_4">
          <attribute name="title">
-          <string>Print Customization</string>
+          <string>DMD1 Print Customization</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout_5">
           <property name="topMargin">
@@ -68,6 +68,22 @@
           </property>
           <item row="0" column="1">
            <widget class="printsettings" name="SettingsWidget" native="true"/>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tab_6">
+         <attribute name="title">
+          <string>DMD2 Print Customization</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_5">
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item row="0" column="1">
+           <widget class="printsettingsDMD2" name="SettingsWidgetDMD2" native="true"/>
           </item>
          </layout>
         </widget>
@@ -229,8 +245,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
               </size>
              </property>
              <property name="text">
-              <string>Image 
- Processing</string>
+              <string>Image Processing</string>
              </property>
             </widget>
            </item>
@@ -249,8 +264,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
               </size>
              </property>
              <property name="text">
-              <string>Focus
-Calibration</string>
+              <string>Focus Calibration</string>
              </property>
             </widget>
            </item>
@@ -269,8 +283,7 @@ Calibration</string>
               </size>
              </property>
              <property name="text">
-              <string>Manual 
- Pump Control</string>
+              <string>Manual Pump Control</string>
              </property>
             </widget>
            </item>
@@ -356,6 +369,27 @@ Calibration</string>
            </property>
           </widget>
          </item>
+
+         <item row="3" column="1">
+          <widget class="QRadioButton" name="DICLIPSelectDMD2">
+           <property name="layoutDirection">
+            <enum>Qt::LayoutDirection::RightToLeft</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 10pt &quot;MS Shell Dlg 2&quot;;</string>
+           </property>
+           <property name="text">
+            <string>VIA DMD2</string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>40</width>
+             <height>40</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+
          <item row="0" column="1">
           <widget class="QRadioButton" name="CLIPSelect">
            <property name="layoutDirection">
@@ -366,6 +400,29 @@ Calibration</string>
            </property>
            <property name="text">
             <string>CLIP </string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>40</width>
+             <height>40</height>
+            </size>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+
+         <item row="2" column="1">
+          <widget class="QRadioButton" name="CLIPSelectDMD2">
+           <property name="layoutDirection">
+            <enum>Qt::LayoutDirection::RightToLeft</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 10pt &quot;MS Shell Dlg 2&quot;;</string>
+           </property>
+           <property name="text">
+            <string>CLIP 2 </string>
            </property>
            <property name="iconSize">
             <size>
@@ -499,13 +556,13 @@ Calibration</string>
       <item row="0" column="0" colspan="2">
        <widget class="QLabel" name="DeSimoneLabLogo">
         <property name="styleSheet">
-         <string notr="true">image: url(:/new/pics/desimone_lab_wordmark-nobg.png);</string>
+         <string notr="true">image: url(:/new/pics/hsiao_lab_wordmark-nobg.png);</string>
         </property>
         <property name="text">
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap>:/new/prefix1/desimone_lab_wordmark-nobg.png</pixmap>
+         <pixmap>:/new/prefix1/hsiao_lab_wordmark-nobg.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -536,6 +593,60 @@ Calibration</string>
            <property name="verticalSpacing">
             <number>15</number>
            </property>
+           <item row="4" column="3">
+            <widget class="QPushButton" name="PIC24FConnectButton">
+             <property name="text">
+              <string>Connect</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="LightEngineIndicator">
+             <property name="styleSheet">
+              <string notr="true">background:rgb(255, 0, 0); border: 1px solid black;</string>
+             </property>
+             <property name="text">
+              <string>Disconnected</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="3">
+            <widget class="QPushButton" name="PumpConnectButton">
+             <property name="text">
+              <string>Connect</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QPushButton" name="LightEngineConnectButton">
+             <property name="text">
+              <string>Connect</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="2">
+            <widget class="QLabel" name="PIC24FConnectionIndicator">
+             <property name="styleSheet">
+              <string notr="true">background:rgb(255, 0, 0); border: 1px solid black;</string>
+             </property>
+             <property name="text">
+              <string>Disconnected</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="StageConnectionTitle">
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Stage:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
            <item row="3" column="1">
             <widget class="QComboBox" name="COMPortSelectPump">
              <item>
@@ -570,11 +681,8 @@ Calibration</string>
              </item>
             </widget>
            </item>
-           
-           
-
-           <item row="1" column="2">
-            <widget class="QLabel" name="LightEngineDMD2Indicator">
+           <item row="2" column="2">
+            <widget class="QLabel" name="StageConnectionIndicator">
              <property name="styleSheet">
               <string notr="true">background:rgb(255, 0, 0); border: 1px solid black;</string>
              </property>
@@ -586,49 +694,10 @@ Calibration</string>
              </property>
             </widget>
            </item>
-           
-           
-           <item row="0" column="2">
-            <widget class="QLabel" name="LightEngineIndicator">
-             <property name="styleSheet">
-              <string notr="true">background:rgb(255, 0, 0); border: 1px solid black;</string>
-             </property>
+           <item row="4" column="0">
+            <widget class="QLabel" name="PIC24FConnectionTitle">
              <property name="text">
-              <string>Disconnected</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignmentFlag::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-
-
-
-
-           <item row="3" column="0">
-            <widget class="QLabel" name="PumpConnectionTitle">
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Pump:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="2">
-            <widget class="QLabel" name="PumpConnectionIndicator">
-             <property name="styleSheet">
-              <string notr="true">background:rgb(255, 0, 0); border: 1px solid black;</string>
-             </property>
-             <property name="text">
-              <string>Disconnected</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignmentFlag::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="3">
-            <widget class="QPushButton" name="StageConnectButton">
-             <property name="text">
-              <string>Connect</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Servo2:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
             </widget>
            </item>
@@ -666,68 +735,6 @@ Calibration</string>
              </item>
             </widget>
            </item>
-
-
-
-
-            <item row="1" column="3">
-            <widget class="QPushButton" name="LightEngineDMD2ConnectButton">
-             <property name="text">
-              <string>Connect</string>
-             </property>
-            </widget>
-           </item>
-
-
-           <item row="0" column="3">
-            <widget class="QPushButton" name="LightEngineConnectButton">
-             <property name="text">
-              <string>Connect</string>
-             </property>
-            </widget>
-           </item>
-           
-           
-           
-           
-           
-           <item row="2" column="0">
-            <widget class="QLabel" name="StageConnectionTitle">
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Stage:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2">
-            <widget class="QLabel" name="StageConnectionIndicator">
-             <property name="styleSheet">
-              <string notr="true">background:rgb(255, 0, 0); border: 1px solid black;</string>
-             </property>
-             <property name="text">
-              <string>Disconnected</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignmentFlag::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="PIC24FConnectionTitle">
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Servo2:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-            </widget>
-           </item>
-           
-           
-            <item row="1" column="0" colspan="2">
-            <widget class="QLabel" name="LightEngineDMD2ConnectionTitle">
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Light Engine 2:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-            </widget>
-           </item>
-           
            <item row="0" column="0" colspan="2">
             <widget class="QLabel" name="LightEngineConnectionTitle">
              <property name="text">
@@ -735,10 +742,20 @@ Calibration</string>
              </property>
             </widget>
            </item>
-           
-           
-           
-           
+           <item row="3" column="0">
+            <widget class="QLabel" name="PumpConnectionTitle">
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Pump:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3">
+            <widget class="QPushButton" name="StageConnectButton">
+             <property name="text">
+              <string>Connect</string>
+             </property>
+            </widget>
+           </item>
            <item row="2" column="1">
             <widget class="QComboBox" name="COMPortSelect">
              <item>
@@ -773,8 +790,8 @@ Calibration</string>
              </item>
             </widget>
            </item>
-           <item row="4" column="2">
-            <widget class="QLabel" name="PIC24FConnectionIndicator">
+           <item row="3" column="2">
+            <widget class="QLabel" name="PumpConnectionIndicator">
              <property name="styleSheet">
               <string notr="true">background:rgb(255, 0, 0); border: 1px solid black;</string>
              </property>
@@ -786,21 +803,33 @@ Calibration</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="3">
-            <widget class="QPushButton" name="PumpConnectButton">
+           <item row="1" column="0" colspan="2">
+            <widget class="QLabel" name="LightEngineConnectionTitleDMD2">
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Light Engine 2:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="3">
+            <widget class="QPushButton" name="LightEngineConnectButtonDMD2">
              <property name="text">
               <string>Connect</string>
              </property>
             </widget>
            </item>
-           <item row="4" column="3">
-            <widget class="QPushButton" name="PIC24FConnectButton">
+           <item row="1" column="2">
+            <widget class="QLabel" name="LightEngineDMD2Indicator">
+             <property name="styleSheet">
+              <string notr="true">background:rgb(255, 0, 0); border: 1px solid black;</string>
+             </property>
              <property name="text">
-              <string>Connect</string>
+              <string>Disconnected</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignCenter</set>
              </property>
             </widget>
            </item>
-           
           </layout>
          </item>
         </layout>
@@ -1432,6 +1461,27 @@ QPushButton#AbortPrint:hover:!pressed {
    <class>printsettings</class>
    <extends>QWidget</extends>
    <header>printsettings.h</header>
+   <container>1</container>
+   <slots>
+    <signal>SettingsPrint(QString)</signal>
+    <signal>updateScript()</signal>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <customwidgets>
+  <customwidget>
+   <class>graphics</class>
+   <extends>QWidget</extends>
+   <header>graphics.h</header>
+   <container>1</container>
+   <slots>
+    <signal>GraphicsPrint(QString)</signal>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>printsettingsDMD2</class>
+   <extends>QWidget</extends>
+   <header>printsettingsDMD2.h</header>
    <container>1</container>
    <slots>
     <signal>SettingsPrint(QString)</signal>

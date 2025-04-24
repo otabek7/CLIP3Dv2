@@ -29,6 +29,7 @@ SOURCES += \
     src/mainwindow/graphics.cpp \
     src/mainwindow/printmonitoring.cpp \
     src/mainwindow/printsettings.cpp \
+    src/mainwindow/printsettingsDMD2.cpp \
     src/secondary/focuscal.cpp \
     src/secondary/imagepopout.cpp \
     src/secondary/imageprocessing.cpp \
@@ -56,6 +57,7 @@ HEADERS += \
     src/mainwindow/graphics.h \
     src/mainwindow/printmonitoring.h \
     src/mainwindow/printsettings.h \
+    src/mainwindow/printsettingsDMD2.h \
     src/secondary/focuscal.h \
     src/secondary/imagepopout.h \
     src/secondary/imageprocessing.h \
@@ -74,6 +76,7 @@ FORMS += \
     src/mainwindow/graphics.ui \
     src/mainwindow/printmonitoring.ui \
     src/mainwindow/printsettings.ui \
+    src/mainwindow/printsettingsDMD2.ui \
     src/secondary/focuscal.ui \
     src/secondary/imagepopout.ui \
     src/secondary/imageprocessing.ui \
