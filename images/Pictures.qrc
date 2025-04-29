@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/new/prefix1">
         <file>testicon.ico</file>
-        <file>desimone_lab_wordmark-nobg.png</file>
+        <file>hsiao_lab_wordmark-nobg.png</file>
         <file>Ubuntu.qss</file>
     </qresource>
     <qresource prefix="/"/>

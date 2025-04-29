@@ -40,9 +40,12 @@ void printcontrol::InitializeSystem(QStringList ImageList, PrintSettings m_Print
   pc_Stage.initStagePosition(m_PrintSettings);    // Move stage to starting position
   pc_Pump.initPumpParams(m_InjectionSettings);
   pc_DLP.SetLEDIntensity(m_PrintSettings.InitialIntensity);
+  pc_DLP2.SetLEDIntensity(m_PrintSettings.InitialIntensity);
   if(m_PrintSettings.ProjectionMode != VIDEO) {
     pc_DLP.PatternDisplay(OFF);
     pc_DLP.PatternUpload(ImageList, *pPrintControls, m_PrintSettings, m_PrintScript);
+    pc_DLP2.PatternDisplay(OFF);
+    pc_DLP2.PatternUpload(ImageList, *pPrintControls, m_PrintSettings, m_PrintScript);
   }
   pPrintControls->PrintEnd = CalcPrintEnd(pPrintControls->nSlice, m_PrintSettings);
   pPrintControls->ExposureType = GetExposureType(m_PrintScript.PrintScript, m_PrintSettings.PumpingMode);
@@ -57,6 +60,7 @@ void printcontrol::InitializeSystem(QStringList ImageList, PrintSettings m_Print
  */
 void printcontrol::AbortPrint(Stage_t StageType, PrintControls* pPrintControl) {
   pc_DLP.PatternDisplay(OFF);                 // Turn projection off
+  pc_DLP2.PatternDisplay(OFF);                 // Turn projection off
   pc_Stage.StageStop(StageType);              // Stop stage movement
   pc_Stage.StageClose(StageType);             // Close stage connection
   pc_Pump.Stop();                             // Stop injection
@@ -80,6 +84,7 @@ void printcontrol::StartPrint(PrintSettings m_PrintSettings, PrintScripts m_Prin
 
   if (m_PrintSettings.ProjectionMode != VIDEO) {  // No pattern sequences in video mode
     pc_DLP.startPatSequence();
+    pc_DLP2.startPatSequence();
   }
 
   if (ContinuousInjection == ON) {
@@ -88,6 +93,7 @@ void printcontrol::StartPrint(PrintSettings m_PrintSettings, PrintScripts m_Prin
 
   if (m_PrintSettings.ProjectionMode == POTF) {
     pc_DLP.clearElements();
+    pc_DLP2.clearElements();
     emit ControlPrintSignal("Entering POTF print process");
   } else if(m_PrintSettings.ProjectionMode == VIDEOPATTERN) {
     emit ControlPrintSignal("Entering Video Patttern print process");
@@ -107,10 +113,14 @@ void printcontrol::StartPrint(PrintSettings m_PrintSettings, PrintScripts m_Prin
 int printcontrol::ReuploadHandler(QStringList ImageList, PrintControls m_PrintControls, PrintSettings m_PrintSettings,
                                   PrintScripts m_PrintScript, bool ContinuousInjection) {
   int UploadedImages = 0;
+  int UploadedImagesDMD2 = 0;
+
   bool VPReupload = CheckReupload(m_PrintSettings, m_PrintControls, m_PrintScript);
   if (VPReupload == false) {
     UploadedImages = m_PrintSettings.ResyncVP;
+    UploadedImagesDMD2 = m_PrintSettings.ResyncVP;
     pc_DLP.startPatSequence();
+    pc_DLP2.startPatSequence();
   } else {
     emit ControlPrintSignal("Entering Reupload: " + QTime::currentTime().toString("hh.mm.ss.zzz"));
 
@@ -127,8 +137,10 @@ int printcontrol::ReuploadHandler(QStringList ImageList, PrintControls m_PrintCo
     }
 
     UploadedImages = pc_DLP.PatternUpload(ImageList, m_PrintControls, m_PrintSettings, m_PrintScript);
-    emit ControlPrintSignal(QString::number(UploadedImages) + " images uploaded");
+    UploadedImagesDMD2 = pc_DLP2.PatternUpload(ImageList, m_PrintControls, m_PrintSettings, m_PrintScript);
 
+    emit ControlPrintSignal(QString::number(UploadedImages) + " images uploaded");
+    emit ControlPrintSignal(QString::number(UploadedImagesDMD2) + " images uploaded");
     // Restarting continous injection after reupload
     if(ContinuousInjection) {
       pc_Pump.SetTargetVolume(0);
@@ -137,12 +149,16 @@ int printcontrol::ReuploadHandler(QStringList ImageList, PrintControls m_PrintCo
     }
     Sleep(625);                     // Necessary delay for DLP to process reupload
     pc_DLP.startPatSequence();      // Restart projection after reupload
+    pc_DLP2.startPatSequence();      // Restart projection after reupload
 
     if (m_PrintScript.VP8) {        // TODO: validate this
       UploadedImages = m_PrintSettings.ResyncVP;
+      UploadedImagesDMD2 = m_PrintSettings.ResyncVP;
+
     }
   }
-  return UploadedImages;
+  int totalUploadedImages = UploadedImages + UploadedImagesDMD2;
+  return totalUploadedImages;
 }
 
 /*!

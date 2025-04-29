@@ -19,7 +19,7 @@ INCLUDEPATH += "src/hardware"
 INCLUDEPATH += "src/3rdparty/hidapi-master/hidapi" #added by otabek
 
 
-#RC_ICONS = FaviconLogo.ico
+RC_ICONS = FaviconLogo.ico
 
 SOURCES += \
     src/3rdparty/hidapi-master/windows/hid.c \ #added by otabek

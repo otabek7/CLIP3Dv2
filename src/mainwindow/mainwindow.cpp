@@ -232,6 +232,8 @@ void MainWindow::on_InitializeAndSynchronize_clicked()
     // Initialize system hardware
     PrintControl.InitializeSystem(ImageList, m_PrintSettings, &m_PrintControls,
                                   m_PrintScript, m_InjectionSettings);
+    PrintControl2.InitializeSystem(ImageList, m_PrintSettings, &m_PrintControls,
+      m_PrintScript, m_InjectionSettings);
     emit(on_GetPosition_clicked()); // Sanity check for stage starting position
     ui->GraphicWindow->initPlot(m_PrintControls, m_PrintSettings, m_PrintScript);
     ui->GraphicWindow->updatePlot(m_PrintControls, m_PrintSettings, m_PrintScript);
@@ -262,6 +264,8 @@ void MainWindow::on_StartPrint_clicked()
     ui->GraphicWindow->addInitialExpLabel();
     PrintControl.StartPrint(m_PrintSettings, m_PrintScript,
                             m_InjectionSettings.ContinuousInjection);
+    PrintControl2.StartPrint(m_PrintSettings, m_PrintScript,
+                            m_InjectionSettings.ContinuousInjection);
     PrintProcess();
   }
 }
@@ -274,6 +278,7 @@ void MainWindow::on_StartPrint_clicked()
 void MainWindow::on_AbortPrint_clicked()
 {
   PrintControl.AbortPrint(m_PrintSettings.StageType, &m_PrintControls); // Stops peripherals
+  PrintControl2.AbortPrint(m_PrintSettings.StageType, &m_PrintControls); // Stops peripherals
   ui->ProgramPrints->append("PRINT ABORTED");
 }
 
